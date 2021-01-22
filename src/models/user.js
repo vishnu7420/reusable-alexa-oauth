@@ -34,6 +34,10 @@ export const User = sequelize.define('users', {
         type: Sequelize.STRING(255),
         allowNull: true
     },
+    token: {
+        type: Sequelize.TEXT,
+        allowNull: true
+    },
     createdAt: {
         type: Sequelize.DATE,
         allowNull: true

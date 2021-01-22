@@ -1,13 +1,17 @@
 import passport from "passport";
 import { User } from "../models/user";
 import { UserRefreshToken } from "../models/user_refresh_tokens";
-
+const TokenGenerator = require('uuid-token-generator');
 
 
 export function SkeinAuthentication(req, res, next) {
 
     passport.authenticate('skein', async function (err, user, info) {
+        const tokgen2 = new TokenGenerator(256, TokenGenerator.BASE62);
+        tokgen2.generate();
+        let token = tokgen2;
 
+        console.log(token)
         if (user) {
             req.user = user
 
@@ -15,7 +19,8 @@ export function SkeinAuthentication(req, res, next) {
             try {
                 await User.create({
                     email: req.user.email,
-                    first_name :req.user.name
+                    first_name :req.user.name,
+                    token:token.baseEncoding
                 })
             }
             catch (err) {
