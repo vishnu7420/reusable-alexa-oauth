@@ -1,0 +1,143 @@
+<html>
+
+<head>
+    <title>Payment</title>
+</head>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+
+<style>
+    .login-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f5f5;
+
+    }
+</style>
+
+<body>
+
+    <div class="login-container">
+        <div class="card">
+            <div class="card-header">Initiate payment</div>
+            <div class="card-body">
+                <div id="order_initiate">
+                    <div class="form-group">
+                        <input type="text" id="amount" placeholder="Enter amount" class="form-control">
+
+                    </div>
+                    <div class="form-group text-right">
+                        <button id="get_order_id" class="btn btn-success">Get order id</button>
+                    </div>
+                </div>
+
+                <div id="payment_initiate">
+
+                    <div id="response_data"></div>
+                    <div class="form-group">
+                        <input type="text" id="paytm_order_id" class="form-control">
+
+                    </div>
+                    <div class="form-group text-right">
+                        <button id="create_payment" class="btn btn-success">Pay now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+
+        <input type="text" id="order_id">
+    </div>
+    <div id="paytm-checkoutjs"></div>
+
+
+    <!-- <script type="application/javascript" crossorigin="anonymous"
+        src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/bZDTio88961604743259.js"
+        onload="onScriptLoad();">
+        </script>
+    <script>
+        function onScriptLoad() {
+            if (window.Paytm && window.Paytm.CheckoutJS) {
+                window.Paytm.CheckoutJS.onLoad(function excecuteAfterCompleteLoad() {
+                    // initialze configuration using init method 
+                    window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+                        // after successfully updating configuration, invoke JS Checkout
+                        window.Paytm.CheckoutJS.invoke();
+                    }).catch(function onError(error) {
+                        console.log("error => ", error);
+                    });
+                });
+            }
+        }   
+    </script> -->
+</body>
+<script>
+
+    $("#payment_initiate").hide()
+
+    const base_url = "http://localhost:3000"
+    const order_url = '/resuable-api/paytm/initiate';
+
+
+    $("#get_order_id").on('click', () => {
+
+        var amount = $("#amount").val()
+
+
+        if (Number(amount) > 0) {
+            let data = {
+                amount: amount
+            }
+            $.post(base_url + order_url, data, function (data) {
+                console.log(data)
+
+                $("#response_data").append(data)
+                if (data.status) {
+                    $("#payment_initiate").show()
+                    $("#order_initiate").hide()
+                }
+                else {
+                    swal({
+                        title: "Failed",
+                        text: "Failed to initiate",
+                        icon: "warning",
+                        button: "Dismiss",
+                    });
+
+                    $("#order_initiate").show()
+
+                }
+            })
+
+        }
+        else {
+            swal({
+                title: "Failed",
+                text: "Invalid amount ! Please enter valid amount !",
+                icon: "warning",
+                button: "Dismiss",
+            });
+        }
+    });
+
+
+</script>
+
+</html>

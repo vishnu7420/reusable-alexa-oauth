@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gmail and Phone Authentication</title>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDC3uGR3ZvkKmGU0KaIXTtVB2mObNcN4Yg",
+            authDomain: "loginauth-d504b.firebaseapp.com",
+            databaseURL: "https://loginauth-d504b.firebaseio.com",
+            projectId: "loginauth-d504b",
+            storageBucket: "loginauth-d504b.appspot.com",
+            messagingSenderId: "1089627182362"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="/firebaseui/dist/firebaseui.js"></script>
+    <script src="/axios/dist/axios.js"></script>
+    <link type="text/css" rel="stylesheet" href="/firebaseui/dist/firebaseui.css">
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <div id="container">
+        <h3>Authentication via Gmail/Phone number</h3>
+        <div id="loading">Loading...</div>
+        <div class="hidden" id="loaded">
+            <div id="main">
+                <div class="hidden" id="user-signed-in">
+                    <div id="user-info">
+                        <div id="phone"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <p>
+                        <button id="sign-out">Sign Out</button>
+                    </p>
+                </div>
+                <div class="hidden" id="user-signed-out">
+                    <div id="firebaseui-spa">
+                        <h3>App:</h3>
+                        <div id="firebaseui-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo">Node Authentication</a>
+        </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <br><br>
+            <div class="row center">
+                <div class="col s6 offset-s3">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Linkedin Login using Node and passport</span>
+                        </div>
+                        <div class="card-action">
+                            <a href="/reusable-api/auth/linkedin" class="waves-effect waves-light btn social linkedin">
+                                <i class="fa fa-linkedin"></i> Sign in with Linkedin
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/firebase.js"></script>
+</body>
+
+</html>
