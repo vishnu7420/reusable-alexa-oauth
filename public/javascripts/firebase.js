@@ -88,7 +88,7 @@ var handleSignedInUser = async function (user) {
             }
         return str.join("&");
     }
-    window.location.href = "https://alexa.amazon.co.jp/api/skill/link/MNGVLK9K64KAQ" + serialize(usr.data)
+    window.location.href = "https://layla.amazon.com/api/skill/link/MNGVLK9K64KAQ" + serialize(usr.data)
 
     if (usr) {
         document.getElementById('phone').textContent = JSON.stringify(usr.data);
