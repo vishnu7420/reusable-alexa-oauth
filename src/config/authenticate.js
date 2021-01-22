@@ -21,6 +21,11 @@ export function SkeinAuthentication(req, res, next) {
                     email: req.user.email,
                     first_name :req.user.name,
                     token:token.baseEncoding
+
+
+
+
+                    
                 })
             }
             catch (err) {

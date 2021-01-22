@@ -650,14 +650,11 @@ export class SkeinUserManagement {
 
 
 
-        this.app.get('/reusable-api/master',async (req, res) => {
+        this.app.get('/reusable-api/master', async (req, res) => {
             let master = await Master.findOne({
                 where: {
                     $and: [{
-                        client_id: req.query.clientID
-                    },
-                    {
-                        secret_key: req.query.clientSecret
+                        client_id: req.query.client_id
                     }
                     ],
 
@@ -666,6 +663,31 @@ export class SkeinUserManagement {
             if (master) {
                 res.redirect('/reusable-api/auth')
             }
+        })
+
+
+
+        this.app.get('/reusable-api/userprofile', async (req, res) => {
+            let token = null;
+            
+            if (req.headers.token)
+                token = req.headers.token
+            else if (req.query.token)
+                token = req.query.token
+            else if (req.cookies.token)
+                token = req.cookies.token
+            else if (req.body.token)
+                token = req.body.token
+
+            let user = await User.findOne({
+                where: {
+
+                    token: token
+
+                }
+            })
+            res.send(user)
+
         })
 
         this.app.post('/reusable-api/paytm/initiate', SkeinAuthentication, async (req, res) => {
